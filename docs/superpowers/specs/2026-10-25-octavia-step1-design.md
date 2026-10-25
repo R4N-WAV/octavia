@@ -1,7 +1,7 @@
 # Octavia — Vision & Step 1 Design
 
 **Date:** 2026-10-25
-**Status:** Awaiting review
+**Status:** Approved (2026-10-25)
 **Scope of this spec:** the overall vision (for reference) and the full design of **Step 1** — movement, the beat clock, and beat-snapped sound. Steps 2–4 get their own spec → plan → build cycle.
 
 ---
@@ -40,7 +40,7 @@ Open countryside: a grass plain far out near farms and forests. Step 1–4 use a
 - Octavia (placeholder figure) can **run**, **jump** (tap = short hop, hold = full jump) and **drop through** one-way platforms (down + jump).
 - Movement is forgiving: a jump still works a moment after running off an edge, and a jump pressed slightly before landing fires on landing.
 - **Sound:**
-  - A gentle looping pastoral backing (strings pad + harp arpeggio) at ~100 BPM.
+  - A gentle looping pastoral backing (strings pad + harp arpeggio) at **96 BPM in C minor**.
   - **Natural layer**, instant: grass footsteps, jump swish, landing thud.
   - **Clarinet layer**, beat-snapped and in key: notes and short phrases triggered by running, jumping and landing — it should sound like improvising over the backing.
   - Footsteps land on the beat: the run cycle is paced to the tempo.
@@ -89,7 +89,7 @@ Open countryside: a grass plain far out near farms and forests. Step 1–4 use a
 
 ### 4.1 Clock (`src/music/clock.ts`)
 
-- Owns tempo (BPM) and meter (4/4). Step 1: one fixed tempo per level, default **100 BPM** (tunable in the overlay).
+- Owns tempo (BPM) and meter (4/4). Step 1: one fixed tempo per level, default **96 BPM** (tunable in the overlay).
 - Song position is measured in **beats** from a start time on the audio clock.
 - Converts audio seconds ↔ beats.
 - Converts input timestamps (`performance.now()`-based, from browser events) to audio time using `AudioContext.getOutputTimestamp()`, so input moments are measured on the same clock as the music, including the device's output latency.
@@ -106,13 +106,13 @@ A pure function: `(inputTimeBeats, gridSet, rules) → snappedTimeBeats`.
   1. **Late grace:** if the input is at most **30 ms after** a grid point, the note plays **immediately** and is logged at that point. (People hear notes within ~30 ms as simultaneous, so this sounds on time and adds no delay.)
   2. **Strong-point pull:** otherwise, if a point of strength ≥ eighth lies within **40 ms ahead**, snap to it.
   3. **Nearest forward:** otherwise snap to the nearest upcoming grid point.
-- With the default jump grid set (quarter, eighth, sixteenth, eighth-triplet, sixteenth-triplet, thirty-second) the largest gap between points is 1/8 beat = **75 ms at 100 BPM**, so no note waits longer than 75 ms. Grid sets and windows are tunable in the overlay.
+- With the default jump grid set (quarter, eighth, sixteenth, eighth-triplet, sixteenth-triplet, thirty-second) the largest gap between points is 1/8 beat = **≈78 ms at 96 BPM**, so no note waits longer than ~78 ms. Grid sets and windows are tunable in the overlay.
 - **Only sound is quantized.** Movement and natural sounds always happen instantly.
 
 ### 4.3 Scheduler & instruments (`src/music/scheduler.ts`, `src/music/instruments/`)
 
 - Look-ahead scheduling: a timer runs every ~25 ms and schedules any notes due in the next ~100 ms on the audio clock (sample-accurate start times).
-- Player notes arrive with a snapped time, typically 0–75 ms ahead, and are scheduled immediately.
+- Player notes arrive with a snapped time, typically 0–78 ms ahead, and are scheduled immediately.
 - **Sampler instrument:** plays a sample for a MIDI pitch and velocity, pitch-shifting from the nearest sampled note; simple attack/release envelope; per-instrument volume.
 - Instruments for Step 1: **clarinet** (player voice), **strings pad** and **harp** (backing).
 - Sample sources: openly licensed orchestral libraries — candidates **VSCO 2 Community Edition** (CC0) and **Sonatina Symphonic Orchestra**. The plan verifies instrument coverage and licence before use. Every asset's source and licence is recorded in `CREDITS.md`.
@@ -120,14 +120,14 @@ A pure function: `(inputTimeBeats, gridSet, rules) → snappedTimeBeats`.
 
 ### 4.4 Score (`src/music/score/`)
 
-- The backing loop is written as note data: an **8-bar progression in D major** (I–vi–IV–V shape, voiced for strings pad), with a gentle harp arpeggio in eighths, looping seamlessly.
+- The backing loop is written as note data: an **8-bar progression in C minor** (i–VI–III–VII shape: Cm – A♭ – E♭ – B♭, voiced for strings pad), with a gentle harp arpeggio in eighths, looping seamlessly.
 - The score exposes the **current chord** and **key** so the clarinet can play in harmony.
 
 ### 4.5 ClarinetVoice (`src/music/clarinetVoice.ts`)
 
 Chooses *which* notes the clarinet plays; the Quantizer chooses *when*.
 
-- Notes come from the current chord's tones, with scale tones (D major) as passing notes. Range: clarinet's comfortable middle register.
+- Notes come from the current chord's tones, with scale tones (C natural minor) as passing notes. Range: clarinet's comfortable middle register.
 - **Jump:** an upward leap from the last note to a chord tone; held jumps get a longer note.
 - **Land:** resolves downward to a chord tone; short note.
 - **Running:** a short melodic fragment (2–4 notes) at the start of each bar while running, built from a small set of hand-written motif shapes transposed to the current chord. Not every step plays a clarinet note — the footsteps carry the rhythm.
@@ -170,7 +170,7 @@ Gameplay events emitted to the music core and foley: `jump` (with held duration 
 
 ### 4.9 Animation & beat sync (`src/game/player/animation.ts`)
 
-- **Run cycle phase-locked to the clock:** two footsteps per beat (on eighths: 300 ms per step at 100 BPM). Animation frame is computed from song position, not from elapsed frames, so footstep contact frames always land on eighth-note points. When running starts, the first stride is shortened or lengthened slightly (≤ one eighth) so contact lands on the next eighth. `footstep` events fire on contact frames.
+- **Run cycle phase-locked to the clock:** two footsteps per beat (on eighths: 312.5 ms per step at 96 BPM). Animation frame is computed from song position, not from elapsed frames, so footstep contact frames always land on eighth-note points. When running starts, the first stride is shortened or lengthened slightly (≤ one eighth) so contact lands on the next eighth. `footstep` events fire on contact frames.
 - Jump and land animations play at normal speed in Step 1 (they are short). Beat-stretching of other key frames (e.g. attack impacts) comes with combat in Step 3.
 - Placeholder sprite: a simple figure at ~16×24 px with idle, run (8 frames), rise, fall, land poses.
 
@@ -254,7 +254,7 @@ octavia/
 1. The game runs in a desktop browser from `npm run dev` (and a built version).
 2. Run, variable jump and drop-through work with coyote time and jump buffering.
 3. The pastoral loop plays seamlessly; footsteps land on eighth notes while running.
-4. Clarinet notes from jump, land and running are in key and never more than 75 ms after the input at 100 BPM; natural sounds play instantly.
+4. Clarinet notes from jump, land and running are in key and never more than ~78 ms after the input at 96 BPM; natural sounds play instantly.
 5. The tuning overlay shows input vs snapped times and allows live tuning.
 6. All unit tests and the smoke test pass.
 7. All assets are openly licensed and listed in `CREDITS.md`.
