@@ -27,13 +27,14 @@ export const KEY_MAP: Record<string, Action> = {
 const ACTIONS: Action[] = ["left", "right", "down", "jump"];
 
 export class InputState {
-  private keys = new Set<string>();
+  // Held digital sources (keys, touch buttons), keyed by source id.
+  private held = new Map<string, Action>();
   private pad: Record<Action, boolean> = { left: false, right: false, down: false, jump: false };
   private edges: ActionEdge[] = [];
 
   isDown(a: Action): boolean {
     if (this.pad[a]) return true;
-    for (const k of this.keys) if (KEY_MAP[k] === a) return true;
+    for (const v of this.held.values()) if (v === a) return true;
     return false;
   }
 
@@ -49,12 +50,18 @@ export class InputState {
   }
 
   handleKey(code: string, down: boolean, timeMs: number): boolean {
-    if (!(code in KEY_MAP)) return false;
-    const before = this.snapshot();
-    if (down) this.keys.add(code);
-    else this.keys.delete(code);
-    this.emitChanges(before, timeMs);
+    const action = KEY_MAP[code];
+    if (!action) return false;
+    this.handleButton(`key:${code}`, action, down, timeMs);
     return true;
+  }
+
+  /** Any held source: on-screen touch buttons use ids like "touch:jump". */
+  handleButton(id: string, action: Action, down: boolean, timeMs: number): void {
+    const before = this.snapshot();
+    if (down) this.held.set(id, action);
+    else this.held.delete(id);
+    this.emitChanges(before, timeMs);
   }
 
   pollGamepad(pad: GamepadLike | null, timeMs: number): void {
@@ -77,7 +84,7 @@ export class InputState {
 
   releaseAll(timeMs: number): void {
     const before = this.snapshot();
-    this.keys.clear();
+    this.held.clear();
     this.pad = { left: false, right: false, down: false, jump: false };
     this.emitChanges(before, timeMs);
   }

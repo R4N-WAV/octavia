@@ -14,8 +14,13 @@ export class StartScene extends Phaser.Scene {
     this.tweens.add({ targets: prompt, alpha: 0.3, duration: 625, yoyo: true, repeat: -1 });
     publishTestState(() => ({ scene: "Start", player: null, audio: "pending", eventCount: 0 }));
 
-    const go = () => this.scene.start("TestArea");
-    this.input.once("pointerdown", go);
-    this.input.keyboard?.once("keydown", go);
+    // Start on any tap/click/key anywhere on the page, not only on the canvas.
+    const go = () => {
+      window.removeEventListener("pointerdown", go);
+      window.removeEventListener("keydown", go);
+      this.scene.start("TestArea");
+    };
+    window.addEventListener("pointerdown", go);
+    window.addEventListener("keydown", go);
   }
 }

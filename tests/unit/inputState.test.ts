@@ -50,3 +50,12 @@ it("gamepad stick dead zone", () => {
   expect(s.isDown("left")).toBe(true);
 });
 it("unmapped key returns false", () => expect(new InputState().handleKey("KeyQ", true, 1)).toBe(false));
+
+it("touch buttons and keys combine like any other source", () => {
+  const s = new InputState();
+  s.handleButton("touch:right", "right", true, 1);
+  s.handleKey("ArrowRight", true, 2);
+  s.handleButton("touch:right", "right", false, 3);
+  expect(s.isDown("right")).toBe(true);
+  expect(s.drainEdges()).toEqual([{ action: "right", pressed: true, timeMs: 1 }]);
+});

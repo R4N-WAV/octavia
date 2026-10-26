@@ -16,10 +16,13 @@ const html = `<title>Octavia</title>
   html, body { height: 100%; }
   body { background: var(--bg); color: var(--fg); font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; overflow: hidden;
+    touch-action: none; -webkit-user-select: none; user-select: none;
     padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); box-sizing: border-box; }
-  #game canvas { display: block; image-rendering: pixelated; max-width: 100%; }
+  #game { flex: none; }
+  #game canvas { display: block; image-rendering: pixelated; }
   .keys { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: center; font-size: 12px; color: var(--muted); }
   kbd { background: var(--key); color: var(--fg); border-radius: 3px; padding: 1px 5px; font: inherit; }
+  @media (pointer: coarse) { .keys { display: none; } }
 </style>
 <div id="game"></div>
 <div class="keys">

@@ -1,8 +1,7 @@
 import Phaser from "phaser";
 import { buildTestArea, TILE } from "../world/testArea";
 import { TILE_INDEX } from "../art/placeholderArt";
-import { InputState } from "../input/inputState";
-import { bindDomInput } from "../input/bindDom";
+import { sharedInput } from "../input/sharedInput";
 import { PlayerController } from "../player/PlayerController";
 import { SilentPlayerMusic } from "../../music/playerEvents";
 import { publishTestState } from "../testHook";
@@ -11,7 +10,7 @@ const BPM = 96;
 
 export class TestAreaScene extends Phaser.Scene {
   private player!: PlayerController;
-  private input2 = new InputState();
+  private input2 = sharedInput;
   private forest!: Phaser.GameObjects.TileSprite;
   private hills!: Phaser.GameObjects.TileSprite;
   private lookAhead = 24;
@@ -42,8 +41,7 @@ export class TestAreaScene extends Phaser.Scene {
 
     // Silent build: beat comes from the wall clock until the audio engine arrives.
     const beat = () => (performance.now() / 1000) * (BPM / 60);
-    const unbind = bindDomInput(this.input2, window);
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, unbind);
+    this.input2.drainEdges(); // drop presses made on the start screen
 
     this.player = new PlayerController(this, area.spawn.x, area.spawn.y, this.input2, new SilentPlayerMusic(), beat);
     this.player.attachLayer(this, layer);
