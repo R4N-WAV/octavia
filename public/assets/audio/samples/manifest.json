@@ -1,0 +1,290 @@
+{
+  "instruments": {
+    "clarinetSus": [
+      {
+        "midi": 50,
+        "url": "assets/audio/samples/clarinetSus/50.flac"
+      },
+      {
+        "midi": 53,
+        "url": "assets/audio/samples/clarinetSus/53.flac"
+      },
+      {
+        "midi": 58,
+        "url": "assets/audio/samples/clarinetSus/58.flac"
+      },
+      {
+        "midi": 62,
+        "url": "assets/audio/samples/clarinetSus/62.flac"
+      },
+      {
+        "midi": 65,
+        "url": "assets/audio/samples/clarinetSus/65.flac"
+      },
+      {
+        "midi": 70,
+        "url": "assets/audio/samples/clarinetSus/70.flac"
+      },
+      {
+        "midi": 74,
+        "url": "assets/audio/samples/clarinetSus/74.flac"
+      },
+      {
+        "midi": 77,
+        "url": "assets/audio/samples/clarinetSus/77.flac"
+      },
+      {
+        "midi": 82,
+        "url": "assets/audio/samples/clarinetSus/82.flac"
+      },
+      {
+        "midi": 86,
+        "url": "assets/audio/samples/clarinetSus/86.flac"
+      },
+      {
+        "midi": 90,
+        "url": "assets/audio/samples/clarinetSus/90.flac"
+      }
+    ],
+    "clarinetStac": [
+      {
+        "midi": 50,
+        "url": "assets/audio/samples/clarinetStac/50.flac"
+      },
+      {
+        "midi": 53,
+        "url": "assets/audio/samples/clarinetStac/53.flac"
+      },
+      {
+        "midi": 58,
+        "url": "assets/audio/samples/clarinetStac/58.flac"
+      },
+      {
+        "midi": 62,
+        "url": "assets/audio/samples/clarinetStac/62.flac"
+      },
+      {
+        "midi": 65,
+        "url": "assets/audio/samples/clarinetStac/65.flac"
+      },
+      {
+        "midi": 70,
+        "url": "assets/audio/samples/clarinetStac/70.flac"
+      },
+      {
+        "midi": 74,
+        "url": "assets/audio/samples/clarinetStac/74.flac"
+      },
+      {
+        "midi": 77,
+        "url": "assets/audio/samples/clarinetStac/77.flac"
+      },
+      {
+        "midi": 82,
+        "url": "assets/audio/samples/clarinetStac/82.flac"
+      },
+      {
+        "midi": 86,
+        "url": "assets/audio/samples/clarinetStac/86.flac"
+      },
+      {
+        "midi": 89,
+        "url": "assets/audio/samples/clarinetStac/89.flac"
+      }
+    ],
+    "harp": [
+      {
+        "midi": 28,
+        "url": "assets/audio/samples/harp/28.flac"
+      },
+      {
+        "midi": 31,
+        "url": "assets/audio/samples/harp/31.flac"
+      },
+      {
+        "midi": 35,
+        "url": "assets/audio/samples/harp/35.flac"
+      },
+      {
+        "midi": 38,
+        "url": "assets/audio/samples/harp/38.flac"
+      },
+      {
+        "midi": 41,
+        "url": "assets/audio/samples/harp/41.flac"
+      },
+      {
+        "midi": 45,
+        "url": "assets/audio/samples/harp/45.flac"
+      },
+      {
+        "midi": 48,
+        "url": "assets/audio/samples/harp/48.flac"
+      },
+      {
+        "midi": 52,
+        "url": "assets/audio/samples/harp/52.flac"
+      },
+      {
+        "midi": 55,
+        "url": "assets/audio/samples/harp/55.flac"
+      },
+      {
+        "midi": 59,
+        "url": "assets/audio/samples/harp/59.flac"
+      },
+      {
+        "midi": 62,
+        "url": "assets/audio/samples/harp/62.flac"
+      },
+      {
+        "midi": 65,
+        "url": "assets/audio/samples/harp/65.flac"
+      },
+      {
+        "midi": 69,
+        "url": "assets/audio/samples/harp/69.flac"
+      },
+      {
+        "midi": 72,
+        "url": "assets/audio/samples/harp/72.flac"
+      },
+      {
+        "midi": 76,
+        "url": "assets/audio/samples/harp/76.flac"
+      },
+      {
+        "midi": 79,
+        "url": "assets/audio/samples/harp/79.flac"
+      },
+      {
+        "midi": 83,
+        "url": "assets/audio/samples/harp/83.flac"
+      },
+      {
+        "midi": 86,
+        "url": "assets/audio/samples/harp/86.flac"
+      },
+      {
+        "midi": 89,
+        "url": "assets/audio/samples/harp/89.flac"
+      },
+      {
+        "midi": 93,
+        "url": "assets/audio/samples/harp/93.flac"
+      },
+      {
+        "midi": 95,
+        "url": "assets/audio/samples/harp/95.flac"
+      },
+      {
+        "midi": 98,
+        "url": "assets/audio/samples/harp/98.flac"
+      },
+      {
+        "midi": 101,
+        "url": "assets/audio/samples/harp/101.flac"
+      }
+    ],
+    "celloSection": [
+      {
+        "midi": 36,
+        "url": "assets/audio/samples/celloSection/36.flac"
+      },
+      {
+        "midi": 40,
+        "url": "assets/audio/samples/celloSection/40.flac"
+      },
+      {
+        "midi": 43,
+        "url": "assets/audio/samples/celloSection/43.flac"
+      },
+      {
+        "midi": 47,
+        "url": "assets/audio/samples/celloSection/47.flac"
+      },
+      {
+        "midi": 50,
+        "url": "assets/audio/samples/celloSection/50.flac"
+      },
+      {
+        "midi": 53,
+        "url": "assets/audio/samples/celloSection/53.flac"
+      },
+      {
+        "midi": 57,
+        "url": "assets/audio/samples/celloSection/57.flac"
+      },
+      {
+        "midi": 60,
+        "url": "assets/audio/samples/celloSection/60.flac"
+      },
+      {
+        "midi": 64,
+        "url": "assets/audio/samples/celloSection/64.flac"
+      },
+      {
+        "midi": 67,
+        "url": "assets/audio/samples/celloSection/67.flac"
+      },
+      {
+        "midi": 71,
+        "url": "assets/audio/samples/celloSection/71.flac"
+      },
+      {
+        "midi": 74,
+        "url": "assets/audio/samples/celloSection/74.flac"
+      },
+      {
+        "midi": 77,
+        "url": "assets/audio/samples/celloSection/77.flac"
+      }
+    ],
+    "violinSection": [
+      {
+        "midi": 55,
+        "url": "assets/audio/samples/violinSection/55.flac"
+      },
+      {
+        "midi": 57,
+        "url": "assets/audio/samples/violinSection/57.flac"
+      },
+      {
+        "midi": 59,
+        "url": "assets/audio/samples/violinSection/59.flac"
+      },
+      {
+        "midi": 62,
+        "url": "assets/audio/samples/violinSection/62.flac"
+      },
+      {
+        "midi": 66,
+        "url": "assets/audio/samples/violinSection/66.flac"
+      },
+      {
+        "midi": 69,
+        "url": "assets/audio/samples/violinSection/69.flac"
+      },
+      {
+        "midi": 72,
+        "url": "assets/audio/samples/violinSection/72.flac"
+      },
+      {
+        "midi": 76,
+        "url": "assets/audio/samples/violinSection/76.flac"
+      },
+      {
+        "midi": 79,
+        "url": "assets/audio/samples/violinSection/79.flac"
+      },
+      {
+        "midi": 83,
+        "url": "assets/audio/samples/violinSection/83.flac"
+      },
+      {
+        "midi": 86,
+        "url": "assets/audio/samples/violinSection/86.flac"
+      }
+    ]
+  }
+}
