@@ -10,6 +10,11 @@
 
 **Spec:** `docs/superpowers/specs/2026-10-25-octavia-step1-design.md`
 
+### Progress
+
+- **Done (2026-10-26):** Tasks 1, 2, 3, 4, 11, 12, 13. Playable *silent* build: `npm run dev`, or `npm run build && node scripts/build-artifact.mjs <out.html>` for a single-file page. Task 13 uses a wall-clock beat (`TestAreaScene`) and `SilentPlayerMusic` from `src/music/playerEvents.ts`; Task 9 must import `PlayerEvents`/`SilentPlayerMusic` from there instead of redefining them.
+- **Next:** Stage B = Tasks 5–8, Stage C = Tasks 9–10, Stage D = Tasks 14–16.
+
 ### Spec amendments made while planning (verified 2026-10-25)
 
 1. **Foley is synthesized** (filtered noise + low sine thumps) instead of CC0 recordings: Kenney, Freesound and OpenGameArt are unreachable from the build environment. `Foley` keeps a method-per-sound API so recordings can replace synthesis later.

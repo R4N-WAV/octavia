@@ -51,7 +51,12 @@ export class TestAreaScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, worldW, worldH);
     this.player.sprite.setCollideWorldBounds(true);
     this.physics.world.on(Phaser.Physics.Arcade.Events.WORLD_STEP, (delta: number) => {
-      const pad = navigator.getGamepads?.()[0] ?? null;
+      let pad: Gamepad | null = null;
+      try {
+        pad = navigator.getGamepads?.()[0] ?? null;
+      } catch {
+        // Gamepad API can be blocked by the embedding page; keyboard still works.
+      }
       this.input2.pollGamepad(pad, performance.now());
       this.player.fixedStep(delta, performance.now());
     });
