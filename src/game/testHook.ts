@@ -1,7 +1,7 @@
 export interface OctaviaTestState {
   scene: string;
   player: { x: number; y: number; grounded: boolean } | null;
-  audio: "running" | "silent" | "pending";
+  audio: "pending" | "loading" | "running" | "silent";
   eventCount: number;
 }
 

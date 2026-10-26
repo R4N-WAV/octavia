@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { publishTestState } from "../testHook";
+import { audioSystem } from "../audio/audioSystem";
 
 export class StartScene extends Phaser.Scene {
   constructor() {
@@ -18,6 +19,7 @@ export class StartScene extends Phaser.Scene {
     const go = () => {
       window.removeEventListener("pointerdown", go);
       window.removeEventListener("keydown", go);
+      audioSystem.start({ silent: new URLSearchParams(location.search).has("silent") });
       this.scene.start("TestArea");
     };
     window.addEventListener("pointerdown", go);

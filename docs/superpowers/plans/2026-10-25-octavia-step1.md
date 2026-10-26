@@ -12,8 +12,11 @@
 
 ### Progress
 
-- **Done (2026-10-26):** Tasks 1, 2, 3, 4, 11, 12, 13. Playable *silent* build: `npm run dev`, or `npm run build && node scripts/build-artifact.mjs <out.html>` for a single-file page. Task 13 uses a wall-clock beat (`TestAreaScene`) and `SilentPlayerMusic` from `src/music/playerEvents.ts`; Task 9 must import `PlayerEvents`/`SilentPlayerMusic` from there instead of redefining them.
-- **Next:** Stage B = Tasks 5–8, Stage C = Tasks 9–10, Stage D = Tasks 14–16.
+- **Done (2026-10-26):** Tasks 1–8, 11–13, plus an early slice of Task 14: `src/game/audio/audioSystem.ts` starts the engine on the first tap, loads the backing instruments and plays the pastoral loop; the run animation follows `MusicClock.perceivedBeat()`. Touch controls (`src/game/input/touchControls.ts`) and phone scaling (`fitSize`) added for mobile testing.
+- Task 9 must import `PlayerEvents`/`SilentPlayerMusic` from `src/music/playerEvents.ts` (already used by the controller) instead of redefining them.
+- Task 14 extends the existing `AudioSystem` (clarinet instruments, `PlayerMusic`, foley, beat visuals, overlay status) rather than creating it. It currently uses its own `perceivedTime` (`currentTime − outputLatency`) instead of `engine.core.perceivedTime`.
+- Shareable build: `npm run build && node scripts/build-artifact.mjs <out-dir>` writes `octavia.html` plus `.wav` copies of the samples (the artifact host does not serve `.flac`).
+- **Next:** Stage C = Tasks 9–10, Stage D = Tasks 14–16.
 
 ### Spec amendments made while planning (verified 2026-10-25)
 

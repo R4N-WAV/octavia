@@ -1,5 +1,4 @@
 import { it, expect } from "vitest";
-// @ts-expect-error plain JS helper module
 import { parseNoteName, noteToMidi, pickPreferred } from "../../scripts/sampleNames.mjs";
 
 it("parses both naming styles", () => {

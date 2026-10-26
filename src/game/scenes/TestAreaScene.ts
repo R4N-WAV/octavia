@@ -5,8 +5,7 @@ import { sharedInput } from "../input/sharedInput";
 import { PlayerController } from "../player/PlayerController";
 import { SilentPlayerMusic } from "../../music/playerEvents";
 import { publishTestState } from "../testHook";
-
-const BPM = 96;
+import { audioSystem } from "../audio/audioSystem";
 
 export class TestAreaScene extends Phaser.Scene {
   private player!: PlayerController;
@@ -39,8 +38,7 @@ export class TestAreaScene extends Phaser.Scene {
       if (t.index === TILE_INDEX.plank) t.setCollision(false, false, true, false);
     });
 
-    // Silent build: beat comes from the wall clock until the audio engine arrives.
-    const beat = () => (performance.now() / 1000) * (BPM / 60);
+    const beat = () => audioSystem.beat();
     this.input2.drainEdges(); // drop presses made on the start screen
 
     this.player = new PlayerController(this, area.spawn.x, area.spawn.y, this.input2, new SilentPlayerMusic(), beat);
@@ -67,8 +65,8 @@ export class TestAreaScene extends Phaser.Scene {
     publishTestState(() => ({
       scene: "TestArea",
       player: { x: this.player.sprite.x, y: this.player.sprite.y, grounded: this.player.state.grounded },
-      audio: "silent",
-      eventCount: 0,
+      audio: audioSystem.status,
+      eventCount: audioSystem.log.events().length,
     }));
   }
 

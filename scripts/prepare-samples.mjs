@@ -74,12 +74,21 @@ function f0OfFile(path) {
 
 const centsOff = (f, midi) => 1200 * Math.log2(f / (440 * 2 ** ((midi - 69) / 12)));
 
+const durationOf = (path) =>
+  Number(sh("ffprobe", ["-v", "error", "-show_entries", "stream=duration", "-of", "csv=p=0", path]).toString().trim()) || 0;
+
 function convert(src, dest, cap) {
-  sh("ffmpeg", [
-    "-v", "error", "-y", "-i", src, "-ac", "1", "-ar", "44100",
-    "-af", `silenceremove=start_periods=1:start_threshold=-50dB,atrim=0:${cap},afade=t=out:st=${(cap - 0.15).toFixed(2)}:d=0.15`,
-    "-c:a", "flac", dest,
-  ]);
+  // Quiet samples can fall entirely under the trim threshold; retry gentler, then untrimmed.
+  for (const threshold of ["-50dB", "-65dB", null]) {
+    const trim = threshold ? `silenceremove=start_periods=1:start_threshold=${threshold},` : "";
+    sh("ffmpeg", [
+      "-v", "error", "-y", "-i", src, "-ac", "1", "-ar", "44100",
+      "-af", `${trim}atrim=0:${cap},afade=t=out:st=${(cap - 0.15).toFixed(2)}:d=0.15`,
+      "-c:a", "flac", dest,
+    ]);
+    if (durationOf(dest) >= 0.3) return;
+  }
+  throw new Error(`${src}: converted sample is shorter than 0.3 s`);
 }
 
 function main() {
